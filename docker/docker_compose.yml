@@ -1,7 +1,0 @@
-services:
-  mobupps-api:
-    build: .
-    ports:
-      - "8080:8080"
-    environment:
-      - ENV=production
