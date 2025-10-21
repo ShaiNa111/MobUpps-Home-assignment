@@ -1,0 +1,7 @@
+service:
+  name: "mobupps_similarity_api"
+  default_model: "v1"
+  top_k: 10
+  ab_split:
+    v1: 0.7
+    v2: 0.3
