@@ -3,6 +3,7 @@
 ## Table of content
 * [Overview](#overview)
 * [System Structure](#system-structure)
+* [Service Architecture Diagram](#service-architecture-diagram)
 * [API Endpoints](#api-endpoints)
 * [Technical Decisions & Rationale](#technical-decisions--rationale)
 * [Testing & Local Run](#testing--local-run)
@@ -41,6 +42,39 @@ your_solution/
 │   └── docker-compose.yml       # Local container orchestration
 │ 
 └── README.md                    # Project documentation
+
+```
+
+## Service Architecture Diagram
+```
+               ┌───────────────────────────┐
+               │       Client / API        │
+               │ (Advertiser or internal)  │
+               └──────────────┬────────────┘
+                              │
+                              ▼
+                  ┌────────────────────────┐
+                  │ FastAPI (Uvicorn/ECS)  │
+                  │  - /find-similar       │
+                  │  - /metrics            │
+                  └───────────┬────────────┘
+                              │
+                              ▼
+             ┌─────────────────────────────────┐
+             │  A/B Router                     │
+             │  (v1=70%, v2=30%)               │
+             └─────────────────────────────────┘
+                              │
+                 ┌────────────────────┐
+                 │ Similarity Service │
+                 │  - Loads embeddings│
+                 │  - Computes cosine │
+                 └────────────────────┘
+                              │
+                              ▼
+                 ┌────────────────────────┐
+                 │        Metrics         │
+                 └────────────────────────┘
 
 ```
 
