@@ -122,21 +122,21 @@ Example Response:
 
 ## Technical Decisions & Rationale
 1. FastAPI Framework
-   * Why: Lightweight, async-ready, type-safe (via Pydantic), and integrates well with ML workloads. 
+   * Lightweight, async-ready, type-safe (via Pydantic), and integrates well with ML workloads. 
    * Trade-off: Slightly more verbose setup than Flask, but faster and better suited for modern async microservices.
 
 2. Embedding Search via Cosine Similarity
-   * Why: For simplicity and transparency — ideal for small to medium datasets. 
+   * For simplicity and transparency — ideal for small to medium datasets. 
    * Trade-off: Linear search (O(n)) not ideal for large-scale (>1M items).
    * Future Optimization: Replace with FAISS / Annoy / ScaNN for vector indexing (sub-10ms queries at scale).
 
 3. A/B Testing Framework
-   * Why: Needed to compare mock_embeddings_v1 vs. mock_embeddings_v2 performance fairly.
+   * Needed to compare mock_embeddings_v1 vs. mock_embeddings_v2 performance fairly.
    * Design: Random traffic split (default 70/30), configurable via YAML.
    * Trade-off: Basic traffic routing; doesn’t yet include significance testing or reward optimization (could be extended with Bayesian bandits).
 
 4. Dockerized Microservice
-   * Why: Ensures reproducibility, deployability, and isolation.
+   * Ensures reproducibility, deployability, and isolation.
    * Trade-off: Slight overhead for local dev, but essential for production parity.
 
 5. Testing Strategy 
