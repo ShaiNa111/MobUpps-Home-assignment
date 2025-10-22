@@ -1,6 +1,5 @@
 # MobUpps Similarity API
 
-
 ## Table of content
 * [Overview](#overview)
 * [System Structure](#system-structure)
@@ -8,7 +7,7 @@
 * [Technical Decisions & Rationale](#technical-decisions--rationale)
 * [Testing & Local Run](#testing--local-run)
 
-### Overview
+## Overview
 
 This project implements a production-ready FastAPI microservice for finding similar mobile apps based on precomputed embeddings, running A/B testing between two model versions (v1 & v2), and exposing REST endpoints for inference and performance metrics.
 
