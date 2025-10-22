@@ -146,7 +146,7 @@ What happens automatically on every push or pull request:
    * Fails immediately if any test or import breaks.
 4. Build Docker Image
    * Dockerfile from /docker/ is used to package the app.
-   * 
+   
 **Final Result:** If all checks pass, the branch is approved for merging into main.
 
 #### 3. Continuous Delivery (CD)
