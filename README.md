@@ -6,7 +6,7 @@
 * [System Structure](#system-structure)
 * [API Endpoints](#api-endpoints)
 * [Technical Decisions & Rationale](#technical-decisions--rationale)
-* 
+* [Testing & Local Run](#testing--local-run)
 
 ### Overview
 
