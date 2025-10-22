@@ -36,10 +36,10 @@ your_solution/
 │   └── test_api.py              # Integration tests for endpoints
 │
 ├── docker/
+│   ├── requirements.txt             # Dependencies
 │   ├── Dockerfile               # Container build file
 │   └── docker-compose.yml       # Local container orchestration
-│
-├── requirements.txt             # Dependencies
+│ 
 └── README.md                    # Project documentation
 
 ```
