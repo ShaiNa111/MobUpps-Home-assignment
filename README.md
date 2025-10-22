@@ -6,6 +6,7 @@
 * [API Endpoints](#api-endpoints)
 * [Technical Decisions & Rationale](#technical-decisions--rationale)
 * [Testing & Local Run](#testing--local-run)
+* [CI/CD Workflow Overview](#cicd-workflow-overview)
 
 ## Overview
 
@@ -125,3 +126,56 @@ Docker run
 ```bash
     docker-compose up --build
 ```
+
+## CI/CD Workflow Overview
+I choose to divid it to some parts to make it easy to understand the process.
+
+#### 1. Development Phase
+Developers creates or updates code and once ready, the developer pushes the branch to GitHub when the tests pass locally, after that the code is pushed for review.
+
+#### 2. Continuous Integration (CI)
+**Using:** GitHub Actions (or any CI tool like Jenkins, GitLab CI, Azure DevOps)</br>
+What happens automatically on every push or pull request:
+1. Checkout & Setup 
+   * Pulls the latest code. 
+   * Sets up the Python environment (e.g., installs dependencies from requirements.txt). 
+2. Linting & Static Checks
+   * Tools like flake8 or pylint ensure code quality and style.
+3. Run Unit Tests
+   * Runs all tests in /tests. 
+   * Fails immediately if any test or import breaks.
+4. Build Docker Image
+   * Dockerfile from /docker/ is used to package the app.
+   * 
+**Final Result:** If all checks pass, the branch is approved for merging into main.
+
+#### 3. Continuous Delivery (CD)
+**Using:** GitHub Actions / Cloud Build / Azure Pipeline
+
+Once code is merged into main, CD takes over:
+
+1. Build Stage
+   * The microservice is packaged into a production-ready Docker image. 
+   * Tagged with version and commit hash (mobupps-similarity:v1.2.3).
+2. Push to Container Registry
+   * Image is pushed to a registry like Docker Hub, GCP Artifact Registry, or Azure Container Registry.
+3. Deploy to Staging
+   * The new image is deployed to a staging environment (e.g., a test server or Kubernetes namespace).
+   * Health checks and integration tests run to confirm behavior.
+
+**Final Result:** If all staging checks pass → automatic or manual approval for production.
+
+#### 4. Continuous Deployment (Production)
+**Using:** CD System + Infrastructure (Kubernetes / ECS / Azure Web App)
+Once approved:
+* The new version of the API is deployed gradually:
+  * Blue/Green Deployment: new version (blue) runs alongside old one (green).
+  * Traffic slowly shifts to the new version.
+  * If no issues → old version is shut down.
+
+* Autoscaling ensures system stability:
+  * If traffic spikes (e.g., 10× users), Kubernetes scales pods automatically.
+* Monitoring tools (Prometheus, Grafana, CloudWatch) track:
+  * Latency 
+  * Request errors 
+  * CPU/memory usage
