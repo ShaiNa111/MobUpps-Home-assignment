@@ -28,8 +28,6 @@ class SimilarityService:
     def find_similar(self, app_vector: list, top_k: int = 10):
         """Find top-k similar apps based on cosine similarity."""
         app_vec = np.array(app_vector).reshape(1, -1)
-        x = self.embeddings[0][0]
-        print(x)
         sims = cosine_similarity(app_vec, self.embeddings)[0]
         top_indices = np.argsort(sims)[::-1][:top_k]
         return [{"index": int(i), "similarity": float(sims[i])} for i in top_indices]
