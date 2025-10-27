@@ -132,7 +132,7 @@ Example Response:
 
 3. A/B Testing Framework
    * Needed to compare mock_embeddings_v1 vs. mock_embeddings_v2 performance fairly.
-   * Design: Random traffic split (default 70/30), configurable via YAML.
+   * Design: Random traffic split (default 70/30).
    * Trade-off: Basic traffic routing; doesn’t yet include significance testing or reward optimization (could be extended with Bayesian bandits).
 
 4. Dockerized Microservice
